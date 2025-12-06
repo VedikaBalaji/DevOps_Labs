@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to DevOps Training Program</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 2s ease-in-out;
+            background-color: #3498db;
+            color: white;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 3rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 90%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .devops-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .icon {
+            font-size: 3rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .icon:hover {
+            transform: translateY(-5px) scale(1.1);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .info-box {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-left: 5px solid #4ecdc4;
+        }
+
+        .info-box h3 {
+            margin-bottom: 0.5rem;
+            color: #4ecdc4;
+        }
+
+        .color-indicator {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-left: 10px;
+            vertical-align: middle;
+            box-shadow: 0 0 10px currentColor;
+        }
+
+        .counter {
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .footer {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            .container {
+                padding: 2rem;
+            }
+            .icon {
+                font-size: 2.5rem;
+                width: 70px;
+                height: 70px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body id="main-body">
+    <div class="container">
+        <div class="floating">
+            <h1>Welcome to DevOps Training Program</h1>
+            <div class="subtitle">
+                Master the Art of Continuous Delivery & Infrastructure Automation
+            </div>
+        </div>
+
+        <div class="devops-icons">
+            <div class="icon"><i class="fab fa-docker" style="color: #2496ed;"></i></div>
+            <div class="icon"><i class="fab fa-jenkins" style="color: #d24939;"></i></div>
+            <div class="icon"><i class="fab fa-kubernetes" style="color: #326ce5;"></i></div>
+            <div class="icon"><i class="fab fa-git-alt" style="color: #f1502f;"></i></div>
+            <div class="icon"><i class="fab fa-linux" style="color: #fcc624;"></i></div>
+        </div>
+
+        <div class="info-box">
+            <h3>𐊀 About This Program</h3>
+            <p>This Docker container demonstrates a dynamic web application with automatic background color transitions every 4 seconds. Perfect for learning DevOps concepts in practice!</p>
+        </div>
+
+        <div class="info-box">
+            <h3>𐎨 Color Transition Active</h3>
+            <p>Background color changes every 4 seconds between 8 beautiful gradient colors.</p>
+            <p>Current Color: <span id="color-name">Blue</span> <span class="color-indicator" id="color-indicator"></span></p>
+            <div class="counter">
+                Next color change in: <span id="countdown">4</span> seconds
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h3>⚙️ Technologies Used</h3>
+            <p>• AlmaLinux 9 • Apache HTTPd • Docker • HTML5 • CSS3 • JavaScript</p>
+        </div>
+
+        <div class="footer">
+            <p>Designed for DevOps Learning | Container ID: <span id="container-id">${HOSTNAME}</span></p>
+            <p>Server Time: <span id="datetime"></span></p>
+        </div>
+    </div>
+
+    <script>
+        // Color palette for background transitions
+        const colors = [
+            { name: "Ocean Blue", value: "linear-gradient(135deg, #3498db, #2c3e50)" },
+            { name: "Sunset Orange", value: "linear-gradient(135deg, #ff6b6b, #ffa726)" },
+            { name: "Forest Green", value: "linear-gradient(135deg, #27ae60, #2ecc71)" },
+            { name: "Purple Dream", value: "linear-gradient(135deg, #8e44ad, #9b59b6)" },
+            { name: "Crimson Red", value: "linear-gradient(135deg, #e74c3c, #c0392b)" },
+            { name: "Teal Wave", value: "linear-gradient(135deg, #1abc9c, #16a085)" },
+            { name: "Golden Hour", value: "linear-gradient(135deg, #f1c40f, #f39c12)" },
+            { name: "Berry Pink", value: "linear-gradient(135deg, #e84393, #fd79a8)" }
+        ];
+
+        let currentColorIndex = 0;
+        let countdownValue = 4;
+        const countdownElement = document.getElementById('countdown');
+        const colorNameElement = document.getElementById('color-name');
+        const colorIndicator = document.getElementById('color-indicator');
+
+        // Extract color from gradient for the indicator
+        function extractColorFromGradient(gradient) {
+            const matches = gradient.match(/#[a-fA-F0-9]{6}/g);
+            return matches ? matches[0] : '#3498db';
+        }
+
+        // Change background color
+        function changeBackgroundColor() {
+            const color = colors[currentColorIndex];
+            document.getElementById('main-body').style.background = color.value;
+            colorNameElement.textContent = color.name;
+            colorIndicator.style.backgroundColor = extractColorFromGradient(color.value);
+            
+            currentColorIndex = (currentColorIndex + 1) % colors.length;
+            countdownValue = 4;
+            countdownElement.textContent = countdownValue;
+        }
+
+        // Update countdown every second
+        function updateCountdown() {
+            countdownValue--;
+            if (countdownValue <= 0) {
+                changeBackgroundColor();
+            }
+            countdownElement.textContent = countdownValue;
+        }
+
+        // Update date and time
+        function updateDateTime() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                timeZoneName: 'short'
+            };
+            document.getElementById('datetime').textContent = now.toLocaleDateString('en-US', options);
+        }
+
+        // Get container ID (simulated)
+        document.getElementById('container-id').textContent = 
+            Math.random().toString(36).substring(2, 10).toUpperCase();
+
+        // Initialize
+        changeBackgroundColor();
+        updateDateTime();
+        
+        // Set intervals
+        setInterval(updateCountdown, 1000);
+        setInterval(updateDateTime, 1000);
+        setInterval(changeBackgroundColor, 4000);
+
+        // Add click effect to icons
+        document.querySelectorAll('.icon').forEach(icon => {
+            icon.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        });
+    </script>
+</body>
+</html>
