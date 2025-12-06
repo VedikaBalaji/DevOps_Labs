@@ -1,0 +1,10 @@
+"ansible_os_family": "RedHat"
+"ansible_memtotal_mb": 3655
+ "ansible_distribution": "Rocky",
+        "ansible_distribution_file_parsed": true,
+        "ansible_distribution_file_path": "/etc/redhat-release",
+        "ansible_distribution_file_variety": "RedHat",
+        "ansible_distribution_major_version": "9",
+        "ansible_distribution_release": "Blue Onyx",
+        "ansible_distribution_version": "9.6"
+        "ansible_hostname": "node1"

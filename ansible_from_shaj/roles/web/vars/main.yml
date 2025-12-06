@@ -1,0 +1,5 @@
+---
+# vars file for web
+# pkg: httpd
+# appservice: httpd
+# fport: 80
