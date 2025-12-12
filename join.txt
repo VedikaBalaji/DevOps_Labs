@@ -1,0 +1,2 @@
+kubeadm join 10.0.15.16:6443 --token 6spfs0.wow354xmjsv1vo5a \
+	--discovery-token-ca-cert-hash sha256:7dddf5b0d6492963967b4972d3cf31d5f229d6b2bd48e5d41680f38110f4bad6
