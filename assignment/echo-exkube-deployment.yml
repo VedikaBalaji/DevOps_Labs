@@ -1,0 +1,26 @@
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: echo-exkube
+  namespace: exkube
+  labels: 
+    app: echo-studentX
+spec: 
+  replicas: 1 
+  selector: 
+    matchLabels:
+      app: echo-studentX
+  template: 
+    metadata:
+      labels: 
+        app: echo-studentX
+    spec:
+      containers:
+      - name: echo-exkube-cont 
+        image: registry.k8s.io/echoserver:1.9 
+
+# Deployment Name: echo-exkube
+# Replicas: 1
+# Container Image: registry.k8s.io/echoserver:1.9  (use httpd or nginx image if this is image is not working for you)
+# Container Name: echo-exkube-cont
+# Label: app=echo-studentX

@@ -1,0 +1,8 @@
+- name: play2
+  hosts: servers
+  tasks:
+    - name: create diskfree report and save in file
+      ansible.builtin.shell: df -h > /tmp/diskfree.txt
+         
+    
+      

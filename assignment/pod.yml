@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simple-pod-kube
+  namespace: machinelearning
+  labels:
+    name: myapp
+
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx
+    resources:
+      limits:
+        memory: "500Mi"
+        cpu: "750m"
+      requests:
+        memory: "50Mi"
+        cpu: "75m"
+    # ports:
+    #   - containerPort: 80
+
+
+# 2.3. Create the Pod as per the following specifications:
+# Name: simple-pod-kube
+# Namespace: machinelearning
+# Maximum CPU: 750m
+# Maximum Memory: 500Mi
+# (use httpd or nginx image)

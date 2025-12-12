@@ -1,0 +1,17 @@
+- name: create user play
+  hosts:  servers
+  tasks:
+    - name: create user
+      user:
+        name: supportuser
+        state: present
+        password: "{{'supass' | password_hash('sha512')}}"
+        comment: "supportuser created"
+    - name: sudo access
+      ansible.builtin.lineinfile:
+        path: /etc/sudoers.d/admins
+        line: "supportuser ALL=(ALL) ALL"
+        insertafter: EOF # Explicitly append to the end of the file
+        create: true
+      
+      

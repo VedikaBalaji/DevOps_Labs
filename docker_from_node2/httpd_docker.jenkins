@@ -1,0 +1,96 @@
+// Declarative Jenkins pipeline: checkout, build, tag and push httpd Docker image
+pipeline {
+    agent any
+
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+        timestamps()
+        timeout(time: 30, unit: 'MINUTES')
+    }
+
+    environment {
+        // Set the Jenkins credentials IDs here (create these in Jenkins Credentials Manager)
+        DOCKERHUB_CREDENTIALS_ID = 'docker123'   // Jenkins username/password credential ID for Docker Hub
+        GIT_CREDENTIALS_ID = 'git'               // Jenkins credentials ID for GitHub (optional)
+
+        // Image name (replace with your Docker Hub user/repo as needed)
+        DOCKER_IMAGE = 'mohit123456789/myhttpd'
+
+        // Dockerfile path inside the repo
+        DOCKERFILE_PATH = '2.1httpddockerfile'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                script {
+                    echo "Cloning ${env.GIT_URL ?: env.GITHUB_REPO ?: 'repository'}"
+                    // If your GitHub repo is public you can omit credentialsId
+                    git credentialsId: "${GIT_CREDENTIALS_ID}", url: 'https://github.com/mohitmadaan1984/docker1.git'
+                }
+            }
+        }
+
+        stage('Build Image') {
+            steps {
+                script {
+                    def tag = env.BUILD_NUMBER ?: 'local'
+                    echo "Building image ${DOCKER_IMAGE}:${tag} using ${DOCKERFILE_PATH}"
+                    // Build image and keep returned object for pushing
+                    def built = docker.build("${DOCKER_IMAGE}:${tag}", "-f ${DOCKERFILE_PATH} .")
+                    // Expose built image object for later stages
+                    env.IMAGE_TAG = tag
+                    env.BUILT_IMAGE = "${DOCKER_IMAGE}:${tag}"
+                }
+            }
+        }
+
+        stage('Push to Docker Hub') {
+            steps {
+                script {
+                    def tag = env.IMAGE_TAG ?: env.BUILD_NUMBER ?: 'local'
+                    echo "Pushing ${DOCKER_IMAGE}:${tag} to Docker Hub"
+
+                    docker.withRegistry('https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS_ID) {
+                        // Push build-number-tagged image
+                        docker.image("${DOCKER_IMAGE}:${tag}").push()
+
+                        // Tag and push `latest`
+                        sh "docker tag ${DOCKER_IMAGE}:${tag} ${DOCKER_IMAGE}:latest"
+                        docker.image("${DOCKER_IMAGE}:latest").push()
+                    }
+                }
+            }
+        }
+
+        stage('Optional - Run Smoke Test') {
+            when { expression { return params == null || !params.containsKey('SKIP_TEST') } }
+            steps {
+                script {
+                    echo "Running quick smoke test against image (container run)"
+                    sh '''#!/bin/bash
+                    set -e
+                    TAG=${IMAGE_TAG:-${BUILD_NUMBER}}
+                    docker rm -f httpd-smoke || true
+                    docker run -d --name httpd-smoke -p 8080:80 ${DOCKER_IMAGE}:${TAG}
+                    sleep 3
+                    curl -f http://localhost:8080/ || (docker logs httpd-smoke && exit 1)
+                    docker rm -f httpd-smoke || true
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Pipeline succeeded. Image: ${DOCKER_IMAGE}:${IMAGE_TAG ?: BUILD_NUMBER}"
+        }
+        failure {
+            echo "Pipeline failed. Check logs for errors."
+        }
+        always {
+            cleanWs()
+        }
+    }
+}
